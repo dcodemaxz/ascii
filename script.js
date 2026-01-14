@@ -36,7 +36,6 @@ class EncryptedMessage {
         this.messageText = '';
         this.artText = '';
         this.encryptedDisplayText = '';
-        this.promptText = '\n\nPress Enter to Decrypt...';
         this.isDecrypting = false;
         this.intervals = [];
         
@@ -224,36 +223,29 @@ class EncryptedMessage {
 
     showDecryptPrompt(encryptedText) {
         this.encryptedDisplayText = encryptedText;
-        const promptIndex = 0;
-        this.typePrompt(encryptedText, this.promptText, promptIndex);
-    }
 
-    typePrompt(baseText, promptText, currentIndex) {
-        if (currentIndex >= promptText.length) {
-            this.menuElement.innerHTML = baseText + promptText + '<span class="cursor"></span>';
-            this.setupDecryptionListener();
-            return;
-        }
+        this.menuElement.innerHTML = `
+${encryptedText}
 
-        const currentPrompt = promptText.substring(0, currentIndex + 1);
-        this.menuElement.innerHTML = baseText + currentPrompt + '<span class="cursor"></span>';
-        
-        setTimeout(() => {
-            this.typePrompt(baseText, promptText, currentIndex + 1);
-        }, 50);
+<div class="decrypt-wrapper">
+    <button id="decryptBtn" class="decrypt-btn">DECRYPT</button>
+</div>
+<span class="cursor"></span>
+        `;
+
+        this.setupDecryptionListener();
     }
 
     setupDecryptionListener() {
-        const handleKeyDown = (event) => {
-            if (event.key === "Enter" && !this.isDecrypting) {
-                this.isDecrypting = true;
-                this.menuElement.textContent = this.encryptedDisplayText;
-                this.randomizeText();
-                document.removeEventListener('keydown', handleKeyDown);
-            }
-        };
+        const btn = document.getElementById('decryptBtn');
+        if (!btn) return;
 
-        document.addEventListener('keydown', handleKeyDown);
+        btn.addEventListener('click', () => {
+            if (this.isDecrypting) return;
+            this.isDecrypting = true;
+            this.menuElement.textContent = this.encryptedDisplayText;
+            this.randomizeText();
+        });
     }
 
     randomizeText() {

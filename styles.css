@@ -145,3 +145,24 @@ body::after {
     display: block;
     height: 20px;
 }
+
+.decrypt-wrapper {
+    margin-top: 16px;
+    text-align: center;
+}
+
+.decrypt-btn {
+    background: transparent;
+    color: #ffff00;
+    border: 1px solid #ffff00;
+    padding: 8px 20px;
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+    letter-spacing: 2px;
+}
+
+.decrypt-btn:hover {
+    background: #ffff00;
+    color: #000;
+}
