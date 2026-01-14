@@ -1,0 +1,147 @@
+:root {
+    --primary-color: #89E6ED;
+    --bg-color: black;
+    --font-size: 16px;
+    --cursor-width: 10px;
+    --cursor-height: 20px;
+    --prompt-color: #ffff00;
+    --scrollbar-track: #222;
+    --scrollbar-thumb: #89E6ED;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Courier New', monospace;
+    font-size: var(--font-size);
+    background-color: var(--bg-color);
+    color: var(--primary-color);
+    overflow: auto;
+    margin: 0;
+    padding: 20px;
+    line-height: 1.4;
+    height: 100vh;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.visible {
+    display: block;
+}
+
+#menu {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    max-height: none;
+    overflow-y: visible;
+}
+
+.cursor {
+    display: inline-block;
+    width: var(--cursor-width);
+    height: var(--cursor-height);
+    background-color: var(--primary-color);
+    animation: blink 0.7s infinite;
+    vertical-align: text-bottom;
+}
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 6px;
+    border: 2px solid var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a0f0f7;
+}
+
+html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+.scroll-indicator {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--primary-color);
+    color: var(--bg-color);
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    opacity: 0.8;
+    animation: pulse 2s infinite;
+    z-index: 1000;
+    display: none;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 0.6;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+.show-scroll-indicator .scroll-indicator {
+    display: block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cursor, .scroll-indicator {
+        animation: none;
+        opacity: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        font-size: 12px;
+        padding: 10px;
+    }
+    
+    .cursor {
+        width: 8px;
+        height: 16px;
+    }
+    
+    .scroll-indicator {
+        bottom: 10px;
+        right: 10px;
+        padding: 6px 10px;
+        font-size: 10px;
+    }
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body::after {
+    content: '';
+    display: block;
+    height: 20px;
+}
